@@ -1,6 +1,7 @@
 variable "iti_vpc_cidr_block_var" {
   type = string
 }
+
 variable "subnet_public_cidr_block_var" {
   type = string
 }

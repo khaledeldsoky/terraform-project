@@ -11,26 +11,9 @@ resource "aws_nat_gateway" "nat_ec2_private" {
 
 resource "aws_eip" "elastic_ip" {
   domain = "vpc"
-  
-    tags = {
+
+  tags = {
     Name = "elastic ip"
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

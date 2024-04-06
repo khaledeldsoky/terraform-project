@@ -1,6 +1,6 @@
 variable "vpc_id_var" {
-  type =  string
-  }
+  type = string
+}
 
 variable "vpc_cidr_blocks_var" {
   type = string
