@@ -28,5 +28,4 @@ To deploy the infrastructure:
 To destroy the infrastructure, run:
 
    ```bash
-   terraform plan -var-file=<workspace>.tfvars
-   terraform apply -var-file=<workspace>.tfvars
+   terraform destroy -var-file=<workspace>.tfvars
