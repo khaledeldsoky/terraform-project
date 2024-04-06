@@ -7,7 +7,7 @@ module "network" {
 }
 
 module "secuirty" {
-  source              = "./secrets"
+  source              = "./secret"
   vpc_id_var          = module.network.vpc_id
   vpc_cidr_blocks_var = var.vpc_cidr_block
   region_var          = var.region
