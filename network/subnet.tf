@@ -2,7 +2,7 @@ resource "aws_subnet" "subnets" {
   for_each = var.subnets
   vpc_id            = aws_vpc.vpc_iti.id
   cidr_block        = each.value["cidr_block"] #"10.0.0.0/24"
-  availability_zone = "${each.value[""]}"
+  availability_zone = "${each.value["AZ"]}"
   tags = {
     Name = "subnet_public ${var.module}"
   }
