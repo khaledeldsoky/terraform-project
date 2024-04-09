@@ -1,55 +1,55 @@
-#------------ screts var ------------#
-variable "vpc_cidr_block" {
-  type = string
-}
+
 variable "region" {
   type = string
 }
 
-#------------ network var ------------#
+# variable "vpc_cidr_block" {
+#   type = string
+# }
 
+# variable "private_subnet_1" {
+#   type = object({
+#     cidr_block = string
+#   })
+# }
 
-variable "subnet_public_cidr_block" {
-  type = string
-}
+# variable "private_subnet_2" {
+#   type = object({
+#     cidr_block = string
+#   })
+# }
 
-variable "subnet_private_cidr_block" {
-  type = string
-}
+# variable "public_subnet_1" {
+#   type = object({
+#     cidr_block = string
+#   })
+# }
 
-variable "ami_ubuntu" {
-  type = string
-}
-variable "instance_type_t2_micro" {
-  type = string
-}
+# variable "public_subnet_2" {
+#   type = object({
+#     cidr_block = string
+#   })
+# }
 
-variable "region_2" {
-  type = string
-}
+# variable "public_route_table" {
+#   type = object({
+#     cidr_block = string
+#   })
+# }
 
-variable "ami_ubuntu_2" {
-  type = string
-}
+# variable "private_route_table" {
+#   type = object({
+#     cidr_block = string
+#   })
+# }
 
-variable "instance_type_t2_mi_2ro_2" {
-  type = string
-}
-
-variable "zone_a" {
-  type = string
-}
-
-variable "zone_b" {
-  type = string
-}
-
-
-variable "module" {
-  type = string
-}
-
-variable "module_2" {
-  type = string
-}
-
+# variable "private_ec2_1" {
+#   type = object({
+#     ami                                = string
+#     instance_type                      = string
+#     associate_public_ip                = bool
+#     subnet_id                          = string
+#     secuirty_group                     = string
+#     aws_key_pair_deployer_key_name_var = string
+#   })
+# }

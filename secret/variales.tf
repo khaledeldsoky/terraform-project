@@ -1,19 +1,8 @@
-variable "vpc_id_var" {
+variable "vpc_id" {
   type = string
 }
 
-variable "vpc_cidr_blocks_var" {
+variable "vpc_cidr_blocks" {
   type = string
 }
 
-variable "region_var" {
-  type = string
-}
-
-variable "zone" {
-  type = string
-}
-
-variable "module" {
-  type = string
-}
