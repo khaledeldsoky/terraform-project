@@ -53,3 +53,15 @@ variable "secourty_group_id_private_var" {
 variable "region_var" {
   type = string
 }
+
+variable "zone_public" {
+  type = string
+}
+
+variable "zone_private" {
+  type = string
+}
+
+variable "module" {
+  type = string
+}

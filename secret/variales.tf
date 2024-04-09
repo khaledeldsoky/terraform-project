@@ -9,3 +9,11 @@ variable "vpc_cidr_blocks_var" {
 variable "region_var" {
   type = string
 }
+
+variable "zone" {
+  type = string
+}
+
+variable "module" {
+  type = string
+}

@@ -1,21 +1,23 @@
-resource "aws_instance" "ec2_public" {
+resource "aws_instance" "ec2_public1" {
   ami                         = data.aws_ami.ubuntu22.id
   instance_type               = var.instance_type_t2_micro
   subnet_id                   = var.subnet_id_public_var
   vpc_security_group_ids      = [var.secuirty_group_id_public_var]
   associate_public_ip_address = true
   key_name                    = var.aws_key_pair_deployer_key_name_var #aws_key_pair.deployer.key_name
-  availability_zone           = "us-east-1a"
-
+  availability_zone = "${var.region_var}${var.zone_public}"
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("./khaled-key.pem")
+    private_key = var.tls_private_key_var #file("./khaled-key.pem")
     host        = self.public_ip
   }
 
   provisioner "local-exec" {
-    command = "echo '${var.tls_private_key_var}' > ./khaled-key.pem "
+    command = <<-OEF
+      echo '${var.tls_private_key_var}' > ./khaled-key${var.module}.pem
+      chmod 600 ./khaled-key${var.module}.pem 
+  OEF
   }
 
   provisioner "remote-exec" {
@@ -24,46 +26,62 @@ resource "aws_instance" "ec2_public" {
       "sudo apt install -y openssh-server",
       "sudo systemctl start ssh",
       "sudo systemctl enable ssh",
-      "sudo mkdir -p /home/ec2-user/.ssh/",
-      "sudo chmod 740 /home/ec2-user/.ssh/",
-      "sudo touch /home/ec2-user/.ssh/id_rsa"
-
+  #     # "sudo mkdir -p /home/ec2-user/.ssh/",
+  #     # "sudo chmod 740 /home/ec2-user/.ssh/",
+  #     # "sudo touch /home/ec2-user/.ssh/id_rsa"
     ]
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > ip.txt"
+    command = <<-EOF
+    echo " " >> /mnt/linux/data/project/final-project/ansible/hosts
+    echo ${self.public_ip} >> /mnt/linux/data/project/final-project/ansible/hosts
+    EOF
   }
 
-  provisioner "file" {
-    source      = "./khaled-key.pem"
-    destination = "/home/ubuntu/.ssh/id_rsa"
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = var.tls_private_key_var #tls_private_key.rsa-4096.private_key_pem
-      host        = self.public_ip
-    }
-  }
+
+  # provisioner "file" {
+  #   source      = "./khaled-key.pem"
+  #   destination = "/home/ubuntu/.ssh/id_rsa"
+  #   # connection {
+  #   #   type        = "ssh"
+  #   #   user        = "ubuntu"
+  #   #   private_key = var.tls_private_key_var #tls_private_key.rsa-4096.private_key_pem
+  #   #   host        = self.public_ip
+  #   # }
+  # }
 
   tags = {
-    "Name" : "ec2_public"
+    "Name" : "ec2_public ${var.module}"
   }
 
 }
+
+
+
 ################# private #################
 
-resource "aws_instance" "ec2_private" {
+resource "aws_instance" "ec2_private1" {
   ami                    = data.aws_ami.ubuntu22.id
   instance_type          = var.instance_type_t2_micro
   subnet_id              = var.subnet_id_private_var
   vpc_security_group_ids = [var.secourty_group_id_private_var]
   key_name               = var.aws_key_pair_deployer_key_name_var #aws_key_pair.deployer.key_name
 
-  availability_zone = "${var.region_var}a"
+availability_zone = "${var.region_var}${var.zone_private}"
   tags = {
-    "Name" : "ec2_private"
+    "Name" : "ec2_private ${var.module}"
   }
-  
+
 }
+#------------------------------ هااااااااااااااااااااااااااااام جدا
+ #terraform taint module.ec2.null_resource.ansible_provisioner 
+# عشان تخلي كل مره يتعمله رن حتي لو محصلش تغير
+# resource "null_resource" "ansible_provisioner" {
+#   depends_on = [aws_instance.ec2_public1]
+#   provisioner "local-exec" {
+#     command     = "ansible-playbook -i hosts playbook.yaml --key-file /mnt/linux/data/project/final-project/terraform/khaled-key${var.module}.pem "
+#     working_dir = "/mnt/linux/data/project/final-project/ansible"
+#   }
+# }
 

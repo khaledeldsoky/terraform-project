@@ -1,16 +1,14 @@
 resource "aws_key_pair" "deployer" {
-  key_name   = "khaled-key"
+  key_name   = "khaled-key${var.module}"
   public_key = tls_private_key.rsa-4096.public_key_openssh
 
   tags = {
-    key_name = "key_pair_public"
+    key_name = "key_pair_public ${var.module}"
   }
   
 }
 
 resource "tls_private_key" "rsa-4096" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  algorithm = "ED25519"
 }
-
-
+#       ED25519 ل  rsa مهم جدا غيرت من 

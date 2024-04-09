@@ -24,7 +24,7 @@ resource "aws_security_group" "public_secourty_group" {
     ipv6_cidr_blocks = ["::/0"]
   }
     tags = {
-    "Name" = "public_secourty_group"
+    "Name" = "public_secourty_group ${var.module}"
   }
 }
 
@@ -56,6 +56,6 @@ resource "aws_security_group" "private_secourty_group" {
     ipv6_cidr_blocks = ["::/0"]
   }
     tags = {
-    "Name" = "private_secourty_group"
+    "Name" = "private_secourty_group ${var.module}"
   }
 }

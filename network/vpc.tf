@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc_iti" {
   enable_dns_support   = true
 
   tags = {
-    "Name" = "iti_vpc"
+    "Name" = "iti_vpc "
   }
 }
 

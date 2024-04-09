@@ -3,7 +3,7 @@ resource "aws_nat_gateway" "nat_ec2_private" {
   subnet_id     = aws_subnet.subnet_private.id
 
   tags = {
-    Name = "gw NAT"
+    Name = "gw NAT ${var.module}"
   }
 
 }
@@ -13,7 +13,7 @@ resource "aws_eip" "elastic_ip" {
   domain = "vpc"
 
   tags = {
-    Name = "elastic ip"
+    Name = "elastic ip ${var.module}"
   }
 
 }

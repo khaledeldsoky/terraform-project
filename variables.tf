@@ -5,7 +5,6 @@ variable "vpc_cidr_block" {
 variable "region" {
   type = string
 }
-#------------ network var ------------#
 
 #------------ network var ------------#
 
@@ -24,3 +23,33 @@ variable "ami_ubuntu" {
 variable "instance_type_t2_micro" {
   type = string
 }
+
+variable "region_2" {
+  type = string
+}
+
+variable "ami_ubuntu_2" {
+  type = string
+}
+
+variable "instance_type_t2_mi_2ro_2" {
+  type = string
+}
+
+variable "zone_a" {
+  type = string
+}
+
+variable "zone_b" {
+  type = string
+}
+
+
+variable "module" {
+  type = string
+}
+
+variable "module_2" {
+  type = string
+}
+
