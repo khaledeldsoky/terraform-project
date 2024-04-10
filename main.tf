@@ -105,3 +105,22 @@ module "secert" {
   vpc_id          = module.network.vpc_id
   vpc_cidr_blocks = module.network.vpc_cidr_block
 }
+
+module "lb" {
+  source = "./load_balancer"
+  security_group_id = module.secert.secuirty_group_id_public
+  lb_public_subnet_ids = [
+    module.network.subnet_id["public_subnet_2"], module.network.subnet_id["public_subnet_1"]
+  ]
+  vpc_id = module.network.vpc_id
+  instanece_ids = {
+   "publicEc21" ={  
+    instanece_id = module.ec2.instance_ids["public_ec2_1"] 
+    port = 80
+    }
+   "publicEc22" = {
+    instanece_id = module.ec2.instance_ids["public_ec2_2"] 
+    port = 80
+    }
+  } 
+}
