@@ -1,5 +1,5 @@
 resource "aws_vpc" "vpc_iti" {
-  cidr_block           = var.iti_vpc_cidr_block_var
+  cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
 

@@ -1,15 +1,19 @@
-variable "iti_vpc_cidr_block_var" {
+variable "vpc_cidr_block" {
   type = string
 }
 
-variable "subnet_public_cidr_block_var" {
-  type = string
+variable "subnets" {
+  type = map(object({
+    cidr_block = string
+    AZ = string
+    # map_ip = bool
+    route_table = string
+  }))
 }
 
-variable "subnet_private_cidr_block_var" {
-  type = string
-}
-
-variable "region_var" {
-  type = string
+variable "route_table" {
+  type = map(object({
+    cidr_block = string
+    gateway_id = string
+  }))
 }

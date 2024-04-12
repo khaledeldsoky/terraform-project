@@ -1,27 +1,14 @@
-resource "aws_subnet" "subnet_public" {
-  vpc_id            = aws_vpc.vpc_iti.id
-  cidr_block        = var.subnet_public_cidr_block_var #"10.0.0.0/24"
-  availability_zone = "${var.region_var}a"
-
-  tags = {
-    Name = "subnet_public"
-  }
-
+data "aws_availability_zones" "available" {
+  state = "available"
 }
 
-
-
-
-
-resource "aws_subnet" "subnet_private" {
+resource "aws_subnet" "subnets" {
+  for_each          = var.subnets
   vpc_id            = aws_vpc.vpc_iti.id
-  cidr_block        = var.subnet_private_cidr_block_var #"10.0.1.0/24"
-  availability_zone = "${var.region_var}a"              #us-east-1a
-
+  cidr_block        = each.value.cidr_block
+  availability_zone = data.aws_availability_zones.available.names[each.value.AZ]
+  # map_public_ip_on_launch = each.value.map_ip
   tags = {
-    Name = "subnet_private"
+    Name = each.key
   }
-
 }
-
-

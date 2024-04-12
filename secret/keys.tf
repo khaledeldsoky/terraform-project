@@ -9,8 +9,6 @@ resource "aws_key_pair" "deployer" {
 }
 
 resource "tls_private_key" "rsa-4096" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  algorithm = "ED25519"
 }
-
-
+#       ED25519 ل  rsa مهم جدا غيرت من 
